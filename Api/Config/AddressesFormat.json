@@ -1,0 +1,16 @@
+﻿[
+  {
+    "Country": "NL",
+    "RegexCity": "/^([^0-9]*)$/",
+    "RegexHouseNumber": "^[0-9]",
+    "RegexStreet": "/^([^0-9]*)$/",
+    "RegexZipcode": "/^(?:NL-)?(\\d{4})\\s*([A-Z]{2})$/i"
+  },
+  {
+    "Country": "IT",
+    "RegexCity": "/^([^0-9]*)$/",
+    "RegexHouseNumber": "^[0-9]",
+    "RegexStreet": "/^([^0-9]*)$/",
+    "RegexZipcode": "^([0-9]{5})$"
+  }
+]
