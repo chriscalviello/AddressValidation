@@ -1,10 +1,13 @@
 ﻿using Api.Models;
+using FluentValidation.TestHelper;
 using Xunit;
 
 namespace ApiUnitTesting.Models
 {
     public class AddressTest
     {
+        private readonly AddressValidator _validator = new AddressValidator();
+
         public AddressTest()
         {
         }
@@ -19,6 +22,19 @@ namespace ApiUnitTesting.Models
             Assert.Equal("HOUSENUMBER", sut.HouseNumber);
             Assert.Equal("STREET", sut.Street);
             Assert.Equal("ZIPCODE", sut.ZipCode);
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData("I")]
+        [InlineData("ITA")]
+        public void GivenInvalidCountry_ShouldHaveValidationError(string countryCode)
+        {
+            var sut = new Address(countryCode, "CITY", "HOUSENUMBER", "STREET", "ZIPCODE");
+            var result = _validator.TestValidate(sut);
+
+            result.ShouldHaveValidationErrorFor(x => x.Country);
         }
     }
 }

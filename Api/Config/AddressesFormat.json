@@ -1,16 +1,1 @@
-[
-  {
-    "Country": "NL",
-    "RegexCity": "[\\p{L} ]\u002B$",
-    "RegexHouseNumber": "^[0-9]",
-    "RegexStreet": "[\\p{L} ]\u002B$",
-    "RegexZipcode": "^[1-9][0-9]{3} ?(?!sa|sd|ss|SA|SD|SS)[A-Za-z]{2}$"
-  },
-  {
-    "Country": "IT",
-    "RegexCity": "[\\p{L} ]\u002B$",
-    "RegexHouseNumber": "^[0-9]",
-    "RegexStreet": "[\\p{L} ]\u002B$",
-    "RegexZipcode": "^([0-9]{5})$"
-  }
-]
+[{"Country":"NL","RegexCity":"[\\p{L} ]\u002B$","RegexHouseNumber":"^[0-9]","RegexStreet":"[\\p{L} ]\u002B$","RegexZipcode":"^[1-9][0-9]{3} ?(?!sa|sd|ss|SA|SD|SS)[A-Za-z]{2}$"},{"Country":"IT","RegexCity":"[\\p{L} ]\u002B$","RegexHouseNumber":"^[0-9]","RegexStreet":"[\\p{L} ]\u002B$","RegexZipcode":"^([0-9]{5})$"}]

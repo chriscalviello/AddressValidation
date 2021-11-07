@@ -1,11 +1,14 @@
 ﻿using System;
 using Api.Models;
+using FluentValidation.TestHelper;
 using Xunit;
 
 namespace ApiUnitTesting.Models
 {
     public class RegexAddressFormatTest
     {
+        private readonly RegexAddressFormatValidator _validator = new RegexAddressFormatValidator();
+
         public RegexAddressFormatTest()
         {
         }
@@ -22,30 +25,52 @@ namespace ApiUnitTesting.Models
             Assert.Equal("/^(?:NL-)?(\\d{4})\\s*([A-Z]{2})$/i", sut.RegexZipcode);
         }
 
-        [Fact]
-        public void GivenInvalidRegexCityPattern_WhenCreate_ShouldSetValues()
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData("[")]
+        public void GivenInvalidRegexCityPattern_ShouldHaveValidationError(string regexCity)
         {
-            Assert.Throws<Exception>(() => new RegexAddressFormat("NL", "[", "^[0-9]", "/^([^0-9]*)$/", "/^(?:NL-)?(\\d{4})\\s*([A-Z]{2})$/i"));
+            var sut = new RegexAddressFormat("NL", regexCity, "^[0-9]", "/^([^0-9]*)$/", "/^(?:NL-)?(\\d{4})\\s*([A-Z]{2})$/i");
+            var result = _validator.TestValidate(sut);
+
+            result.ShouldHaveValidationErrorFor(x => x.RegexCity);
         }
 
-        [Fact]
-        public void GivenInvalidRegexHouseNumberPattern_WhenCreate_ShouldSetValues()
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData("[")]
+        public void GivenInvalidRegexHouseNumberPattern_ShouldHaveValidationError(string regexHouseNumber)
         {
-            Assert.Throws<Exception>(() => new RegexAddressFormat("NL", "/^([^0-9]*)$/", "[", "/^([^0-9]*)$/", "/^(?:NL-)?(\\d{4})\\s*([A-Z]{2})$/i"));
+            var sut = new RegexAddressFormat("NL", "/^([^0-9]*)$/", regexHouseNumber, "/^([^0-9]*)$/", "/^(?:NL-)?(\\d{4})\\s*([A-Z]{2})$/i");
+            var result = _validator.TestValidate(sut);
+
+            result.ShouldHaveValidationErrorFor(x => x.RegexHouseNumber);
         }
 
-        [Fact]
-        public void GivenInvalidRegexStreetPattern_WhenCreate_ShouldSetValues()
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData("[")]
+        public void GivenInvalidRegexStreetPattern_ShouldHaveValidationError(string regexStreet)
         {
-            Assert.Throws<Exception>(() => new RegexAddressFormat("NL", "/^([^0-9]*)$/", "^[0-9]", "[", "/^(?:NL-)?(\\d{4})\\s*([A-Z]{2})$/i"));
+            var sut = new RegexAddressFormat("NL", "/^([^0-9]*)$/", "^[0-9]", regexStreet, "/^(?:NL-)?(\\d{4})\\s*([A-Z]{2})$/i");
+            var result = _validator.TestValidate(sut);
+
+            result.ShouldHaveValidationErrorFor(x => x.RegexStreet);
         }
 
-        [Fact]
-        public void GivenInvalidRegexZipCodePatternPattern_WhenCreate_ShouldSetValues()
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData("[")]
+        public void GivenInvalidRegexZipCodePattern_ShouldHaveValidationError(string regexZipCode)
         {
-            Assert.Throws<Exception>(() => new RegexAddressFormat("NL", "/^([^0-9]*)$/", "^[0-9]", "/^([^0-9]*)$/", "["));
+            var sut = new RegexAddressFormat("NL", "/^([^0-9]*)$/", "^[0-9]", "/^([^0-9]*)$/", regexZipCode);
+            var result = _validator.TestValidate(sut);
+
+            result.ShouldHaveValidationErrorFor(x => x.RegexZipcode);
         }
-
-
     }
 }

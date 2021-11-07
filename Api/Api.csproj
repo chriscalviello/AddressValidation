@@ -8,6 +8,7 @@
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.4" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,6 +23,8 @@
     <None Remove="Castle.Windsor" />
     <None Remove="Castle.Core" />
     <None Remove="System.Configuration.ConfigurationManager" />
+    <None Remove="FluentValidation" />
+    <None Remove="FluentValidation.AspNetCore" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Config\" />
