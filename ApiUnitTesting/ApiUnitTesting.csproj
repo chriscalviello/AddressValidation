@@ -22,10 +22,14 @@
   <ItemGroup>
     <None Remove="Services\" />
     <None Remove="Models\" />
+    <None Remove="Services\Config\" />
+    <None Remove="Services\AddressValidation\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
     <Folder Include="Models\" />
+    <Folder Include="Services\Config\" />
+    <Folder Include="Services\AddressValidation\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Api\Api.csproj" />

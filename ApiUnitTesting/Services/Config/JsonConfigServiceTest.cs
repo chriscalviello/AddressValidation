@@ -1,6 +1,6 @@
 ﻿using System;
 using Api.Models;
-using Api.Services;
+using Api.Services.Config;
 using Xunit;
 
 namespace ApiUnitTesting.Services

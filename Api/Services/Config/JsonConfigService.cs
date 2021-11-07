@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text.Json;
 using Api.Models;
 
-namespace Api.Services
+namespace Api.Services.Config
 {
     public class JsonConfigService : IConfigService
     {
