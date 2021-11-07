@@ -1,10 +1,13 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 
 namespace Api.Models
 {
     public class RegexAddressFormatDTO
     {
+        [Required]
+        [StringLength(2, MinimumLength = 2)]
         public string Country { get; private set; }
         public bool IsCityOptional { get; private set; }
         public bool IsHouseNumberOptional { get; private set; }

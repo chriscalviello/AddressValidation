@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Api.Models;
 using Api.Services.AddressValidation;
@@ -81,6 +82,7 @@ namespace Api.Controllers
 
         [HttpGet]
         [Route("")]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<RegexAddressFormatDTO>))]
         public IActionResult GetAddressesFormat([FromQuery] string countryCode)
         {
             try
@@ -90,7 +92,7 @@ namespace Api.Controllers
                     return Ok(new { AddressesFormat = configService.GetRegexAddressesFormat().Select(x => new RegexAddressFormatDTO(x)) });
                 }
 
-                return Ok(new { AddressesFormat = new RegexAddressFormatDTO(configService.GetRegexAddressFormat(countryCode)) });
+                return Ok(new { AddressesFormat = new List<RegexAddressFormatDTO>() { new RegexAddressFormatDTO(configService.GetRegexAddressFormat(countryCode)) } });
             }
             catch (Exception ex)
             {
