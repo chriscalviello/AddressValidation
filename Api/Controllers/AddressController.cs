@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Api.Models;
 using Api.Services.AddressValidation;
 using Api.Services.Config;
@@ -70,6 +71,25 @@ namespace Api.Controllers
             {
                 configService.DeleteRegexAddressFormat(countryCode);
                 return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Error = ex.Message });
+            }
+        }
+
+        [HttpGet]
+        [Route("")]
+        public IActionResult GetAddressesFormat([FromQuery] string countryCode)
+        {
+            try
+            {
+                if(string.IsNullOrEmpty(countryCode))
+                {
+                    return Ok(new { AddressesFormat = configService.GetRegexAddressesFormat().Select(x => new RegexAddressFormatDTO(x)) });
+                }
+
+                return Ok(new { AddressesFormat = new RegexAddressFormatDTO(configService.GetRegexAddressFormat(countryCode)) });
             }
             catch (Exception ex)
             {
