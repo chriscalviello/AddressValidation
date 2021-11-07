@@ -1,7 +1,6 @@
 ﻿using System;
 using Api.Models;
 using Api.Services.AddressValidation;
-using Api.Services.Config;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
@@ -9,13 +8,11 @@ namespace Api.Controllers
     [Route("api/address")]
     public class AddressController : ControllerBase
     {
-        private readonly IConfigService configService;
         private readonly IAddressValidationService addressValidationService;
 
-        public AddressController()
+        public AddressController(IAddressValidationService addressValidationService)
         {
-            configService = new JsonConfigService("config/AddressesFormat.json");
-            addressValidationService = new AddressValidationService(configService);
+            this.addressValidationService = addressValidationService;
         }
 
         [HttpPost]
