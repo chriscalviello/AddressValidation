@@ -5,6 +5,11 @@
     <GenerateProgramFile>false</GenerateProgramFile>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\net5.0\Api.xml</DocumentationFile>
+    <NoWarn>1701;1702;1591</NoWarn>
+  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
@@ -25,6 +30,7 @@
     <None Remove="System.Configuration.ConfigurationManager" />
     <None Remove="FluentValidation" />
     <None Remove="FluentValidation.AspNetCore" />
+    <None Remove="Swashbuckle.AspNetCore.Annotations" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Config\" />

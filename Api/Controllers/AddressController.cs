@@ -21,6 +21,9 @@ namespace Api.Controllers
             this.configService = configService;
         }
 
+        /// <summary>
+        /// Check if the given address is valid for a country
+        /// </summary>
         [HttpPost]
         [Route("isvalid")]
         public IActionResult IsValid([FromBody] Address address)
@@ -35,6 +38,9 @@ namespace Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Add support to a new country
+        /// </summary>
         [HttpPost]
         [Route("")]
         public IActionResult AddAddressesFormat([FromBody] RegexAddressFormat regexAddressFormat)
@@ -50,6 +56,9 @@ namespace Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Edit address' configuration for a country
+        /// </summary>
         [HttpPut]
         [Route("")]
         public IActionResult EditAddressesFormat([FromBody] RegexAddressFormat regexAddressFormat)
@@ -65,6 +74,9 @@ namespace Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Delete address' configuration for a country
+        /// </summary>
         [HttpDelete]
         [Route("")]
         public IActionResult Delete([FromQuery] string countryCode)
@@ -80,6 +92,9 @@ namespace Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Get supported configurations
+        /// </summary>
         [HttpGet]
         [Route("")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<RegexAddressFormatDTO>))]

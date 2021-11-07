@@ -1,4 +1,7 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
+using System.IO;
+using System.Reflection;
 using Api.Models;
 using Api.Services.AddressValidation;
 using Api.Services.Config;
@@ -27,7 +30,22 @@ namespace Api
             services.AddControllers().AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<Startup>());
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Api", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Address Validation",
+                    Version = "v1",
+                    Description = "An API to perform addresses validation",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Chris Calviello",
+                        Email = "chris.calviello@gmail.com",
+                    },
+                });
+
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
             });
 
             var addressesFormatPath = ConfigurationManager.AppSettings["AddressesFormatPath"].ToString();
