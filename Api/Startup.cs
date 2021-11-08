@@ -35,7 +35,7 @@ namespace Api
                 {
                     Title = "Address Validation",
                     Version = "v1",
-                    Description = "An API to perform addresses validation",
+                    Description = "An API to perform addresses validation based on regular expressions",
                     Contact = new OpenApiContact
                     {
                         Name = "Chris Calviello",
@@ -45,8 +45,7 @@ namespace Api
 
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
-                    Description = @"JWT Authorization header using the jwt token.
-                      Enter your token in the text input below.",
+                    Description = "JWT Authorization header using the jwt token. Enter your token in the text input below.",
                     Name = "Authorization",
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.Http,
