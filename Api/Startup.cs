@@ -4,6 +4,7 @@ using System.IO;
 using System.Reflection;
 using Api.Models;
 using Api.Services.AddressValidation;
+using Api.Services.Authentication;
 using Api.Services.Config;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
@@ -51,6 +52,11 @@ namespace Api
             var addressesFormatPath = ConfigurationManager.AppSettings["AddressesFormatPath"].ToString();
             services.AddSingleton<IConfigService>(new JsonConfigService(addressesFormatPath));
             services.AddSingleton<IAddressValidationService, AddressValidationService>();
+
+            var usersPath = ConfigurationManager.AppSettings["UsersPath"].ToString();
+            var jwtSecret = ConfigurationManager.AppSettings["JwtSecret"].ToString();
+            var jwtDurationInSeconds = double.Parse(ConfigurationManager.AppSettings["JwtDurationInSeconds"].ToString());
+            services.AddSingleton<IAuthenticationService>(new LocalAuthenticationService(usersPath, jwtSecret, jwtDurationInSeconds));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

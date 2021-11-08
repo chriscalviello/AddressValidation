@@ -26,12 +26,14 @@
     <None Remove="Services\Config\" />
     <None Remove="Services\AddressValidation\" />
     <None Remove="FluentValidation.AspNetCore" />
+    <None Remove="Services\Authentication\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
     <Folder Include="Models\" />
     <Folder Include="Services\Config\" />
     <Folder Include="Services\AddressValidation\" />
+    <Folder Include="Services\Authentication\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Api\Api.csproj" />

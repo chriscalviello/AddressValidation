@@ -14,6 +14,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.4" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.14.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,6 +32,9 @@
     <None Remove="FluentValidation" />
     <None Remove="FluentValidation.AspNetCore" />
     <None Remove="Swashbuckle.AspNetCore.Annotations" />
+    <None Remove="Models\User\" />
+    <None Remove="Services\Authentication\" />
+    <None Remove="System.IdentityModel.Tokens.Jwt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Config\" />
@@ -39,5 +43,7 @@
     <Folder Include="Controllers\" />
     <Folder Include="Services\Config\" />
     <Folder Include="Services\AddressValidation\" />
+    <Folder Include="Models\User\" />
+    <Folder Include="Services\Authentication\" />
   </ItemGroup>
 </Project>
