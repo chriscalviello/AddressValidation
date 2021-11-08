@@ -69,6 +69,19 @@ namespace Api.Services.Authentication
             return new LoggedUser(credentials.Username, token);
         }
 
+        public User GetUserByUsername(string username)
+        {
+            var existingCredentials = GetCredentials();
+
+            var storedCredential = existingCredentials.FirstOrDefault(x => x.Username == username);
+            if (storedCredential == null)
+            {
+                throw new Exception("This username doesn't exist");
+            }
+
+            return new User() { Username = username };
+        }
+
         private List<Credentials> GetCredentials()
         {
             List<Credentials> result;

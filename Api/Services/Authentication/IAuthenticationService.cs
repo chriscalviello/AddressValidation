@@ -6,5 +6,6 @@ namespace Api.Services.Authentication
     {
         public LoggedUser Signup(Credentials credentials);
         public LoggedUser Signin(Credentials credentials);
+        public User GetUserByUsername(string username);
     }
 }
