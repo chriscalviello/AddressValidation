@@ -2,7 +2,7 @@
 using System.Configuration;
 using System.IO;
 using System.Reflection;
-using Api.Models;
+using Api.Helpers;
 using Api.Services.AddressValidation;
 using Api.Services.Authentication;
 using Api.Services.Config;
@@ -43,6 +43,18 @@ namespace Api
                     },
                 });
 
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = @"JWT Authorization header using the jwt token.
+                      Enter your token in the text input below.",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "Bearer"
+                });
+
+                c.OperationFilter<AuthResponsesOperationFilter>();
+
                 // Set the comments path for the Swagger JSON and UI.
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
@@ -72,6 +84,8 @@ namespace Api
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseMiddleware<JwtMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

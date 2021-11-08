@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Api.Helpers;
 using Api.Models;
 using Api.Services.AddressValidation;
 using Api.Services.Config;
@@ -25,6 +26,7 @@ namespace Api.Controllers
         /// Check if the given address is valid for a country
         /// </summary>
         [HttpPost]
+        [Authorize]
         [Route("isvalid")]
         public IActionResult IsValid([FromBody] Address address)
         {
@@ -42,6 +44,7 @@ namespace Api.Controllers
         /// Add support to a new country
         /// </summary>
         [HttpPost]
+        [Authorize]
         [Route("")]
         public IActionResult AddAddressesFormat([FromBody] RegexAddressFormat regexAddressFormat)
         {
@@ -60,6 +63,7 @@ namespace Api.Controllers
         /// Edit address' configuration for a country
         /// </summary>
         [HttpPut]
+        [Authorize]
         [Route("")]
         public IActionResult EditAddressesFormat([FromBody] RegexAddressFormat regexAddressFormat)
         {
@@ -78,6 +82,7 @@ namespace Api.Controllers
         /// Delete address' configuration for a country
         /// </summary>
         [HttpDelete]
+        [Authorize]
         [Route("")]
         public IActionResult Delete([FromQuery] string countryCode)
         {
@@ -97,6 +102,7 @@ namespace Api.Controllers
         /// </summary>
         [HttpGet]
         [Route("")]
+        [Authorize]
         [ProducesResponseType(200, Type = typeof(IEnumerable<RegexAddressFormatDTO>))]
         public IActionResult GetAddressesFormat([FromQuery] string countryCode)
         {

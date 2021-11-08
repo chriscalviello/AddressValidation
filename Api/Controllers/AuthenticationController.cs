@@ -1,6 +1,7 @@
 ﻿using System;
 using Api.Models.User;
 using Api.Services.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
@@ -21,6 +22,7 @@ namespace Api.Controllers
         /// </summary>
         [HttpPost]
         [Route("signup")]
+        [AllowAnonymous]
         [ProducesResponseType(200, Type = typeof(LoggedUser))]
         public IActionResult Signup([FromBody] Credentials credentials)
         {
@@ -39,6 +41,7 @@ namespace Api.Controllers
         /// </summary>
         [HttpPost]
         [Route("signin")]
+        [AllowAnonymous]
         [ProducesResponseType(200, Type = typeof(LoggedUser))]
         public IActionResult Signin([FromBody] Credentials credentials)
         {
