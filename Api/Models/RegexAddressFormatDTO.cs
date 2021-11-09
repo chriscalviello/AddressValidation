@@ -16,6 +16,11 @@ namespace Api.Models
 
         public RegexAddressFormatDTO(RegexAddressFormat regexAddressFormat)
         {
+            if(regexAddressFormat == null)
+            {
+                throw new Exception("Invalid argument");
+            }
+
             Country = regexAddressFormat.Country;
 
             IsCityOptional = IsFieldOptional(regexAddressFormat.RegexCity);

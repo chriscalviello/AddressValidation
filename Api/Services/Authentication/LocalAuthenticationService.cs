@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -30,12 +31,12 @@ namespace Api.Services.Authentication
             var storedCredential = existingCredentials.FirstOrDefault(x => x.Username == credentials.Username);
             if (storedCredential == null)
             {
-                throw new Exception("This username doesn't exist");
+                return null;
             }
 
             if(storedCredential.Password != credentials.Password)
             {
-                throw new Exception("Password incorrect");
+                return null;
             }
 
             var token = GenerateJwtToken(credentials);
@@ -48,7 +49,7 @@ namespace Api.Services.Authentication
             var existingCredentials = GetCredentials();
             if(existingCredentials.Any(x => x.Username == credentials.Username))
             {
-                throw new Exception("Username is already used");
+                throw new InvalidOperationException("Username is already used");
             }
 
             existingCredentials.Add(credentials);
@@ -75,7 +76,7 @@ namespace Api.Services.Authentication
             var storedCredential = existingCredentials.FirstOrDefault(x => x.Username == username);
             if (storedCredential == null)
             {
-                throw new Exception("This username doesn't exist");
+                return null;
             }
 
             return new User() { Username = username };

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Api.Models;
 using Api.Services.Config;
 using Xunit;
@@ -72,7 +73,7 @@ namespace ApiUnitTesting.Services
         {
             var regexAddressFormat = new RegexAddressFormat("NL", "/^([^0-9]*)$/", "^[0-9]", "/^([^0-9]*)$/", "/^\\d{5}$/");
 
-            Assert.Throws<Exception>(() => sut.AddRegexAddressFormat(regexAddressFormat));
+            Assert.Throws<InvalidOperationException>(() => sut.AddRegexAddressFormat(regexAddressFormat));
         }
 
         [Fact]
@@ -114,13 +115,13 @@ namespace ApiUnitTesting.Services
         {
             var regexAddressFormat = new RegexAddressFormat("UK", "/^([^0-9]*)$/", "^[0-9]", "/^([^0-9]*)$/", "/^\\d{5}$/");
 
-            Assert.Throws<Exception>(() => sut.EditRegexAddressFormat(regexAddressFormat));
+            Assert.Throws<KeyNotFoundException>(() => sut.EditRegexAddressFormat(regexAddressFormat));
         }
 
         [Fact]
         public void GivenNotExistingCountry_WhenDeleteRegexAddressFormat_ShouldThrow()
         {
-            Assert.Throws<Exception>(() => sut.DeleteRegexAddressFormat("UK"));
+            Assert.Throws<KeyNotFoundException>(() => sut.DeleteRegexAddressFormat("UK"));
         }
 
         [Fact]

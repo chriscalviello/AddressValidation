@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using Api.Models.User;
 using Api.Services.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -30,6 +32,10 @@ namespace Api.Controllers
             {
                 return Ok(new { IsValid = authenticationService.Signup(credentials) });
             }
+            catch (InvalidOperationException ex)
+            {
+                return StatusCode(409, new { Error = ex.Message });
+            }
             catch (Exception ex)
             {
                 return StatusCode(500, new { Error = ex.Message });
@@ -47,7 +53,14 @@ namespace Api.Controllers
         {
             try
             {
-                return Ok(new { IsValid = authenticationService.Signin(credentials) });
+                var loggedUser = authenticationService.Signin(credentials);
+
+                if(loggedUser == null)
+                {
+                    return StatusCode(401, new { Error = "Invalid credentials" });
+                }
+
+                return Ok(new { loggedUser });
             }
             catch (Exception ex)
             {

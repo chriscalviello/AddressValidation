@@ -53,6 +53,10 @@ namespace Api.Controllers
                 configService.AddRegexAddressFormat(regexAddressFormat);   
                 return Ok();
             }
+            catch (InvalidOperationException ex)
+            {
+                return StatusCode(409, new { Error = ex.Message });
+            }
             catch (Exception ex)
             {
                 return StatusCode(500, new { Error = ex.Message });
@@ -72,6 +76,10 @@ namespace Api.Controllers
                 configService.EditRegexAddressFormat(regexAddressFormat);
                 return Ok();
             }
+            catch(KeyNotFoundException ex)
+            {
+                return StatusCode(404, new { Error = ex.Message });
+            }
             catch (Exception ex)
             {
                 return StatusCode(500, new { Error = ex.Message });
@@ -90,6 +98,10 @@ namespace Api.Controllers
             {
                 configService.DeleteRegexAddressFormat(countryCode);
                 return Ok();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return StatusCode(404, new { Error = ex.Message });
             }
             catch (Exception ex)
             {
@@ -113,7 +125,13 @@ namespace Api.Controllers
                     return Ok(new { AddressesFormat = configService.GetRegexAddressesFormat().Select(x => new RegexAddressFormatDTO(x)) });
                 }
 
-                return Ok(new { AddressesFormat = new List<RegexAddressFormatDTO>() { new RegexAddressFormatDTO(configService.GetRegexAddressFormat(countryCode)) } });
+                var addressFormat = configService.GetRegexAddressFormat(countryCode);
+                if(addressFormat == null)
+                {
+                    return StatusCode(404);
+                }
+
+                return Ok(new { AddressesFormat = new List<RegexAddressFormatDTO>() { new RegexAddressFormatDTO(addressFormat) } });
             }
             catch (Exception ex)
             {

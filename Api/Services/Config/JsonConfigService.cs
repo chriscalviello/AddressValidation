@@ -20,7 +20,7 @@ namespace Api.Services.Config
             var addressesFormat = GetRegexAddressesFormat();
             if (addressesFormat.Any(x => x.Country == regexAddressFormat.Country))
             {
-                throw new Exception(regexAddressFormat.Country + " already existing");
+                throw new InvalidOperationException(regexAddressFormat.Country + " already existing");
             }
 
             addressesFormat.Add(regexAddressFormat);
@@ -42,7 +42,7 @@ namespace Api.Services.Config
 
             if (!addressesFormat.Any(x => x.Country == countryCode))
             {
-                throw new Exception("Can't find " + countryCode);
+                throw new KeyNotFoundException("Can't find " + countryCode);
             }
 
             try
@@ -67,7 +67,7 @@ namespace Api.Services.Config
 
             if (!addressesFormat.Any(x => x.Country == regexAddressFormat.Country))
             {
-                throw new Exception("Can't find " + regexAddressFormat.Country);
+                throw new KeyNotFoundException("Can't find " + regexAddressFormat.Country);
             }
 
             var idx = addressesFormat.FindIndex(x => x.Country == regexAddressFormat.Country);
@@ -102,6 +102,7 @@ namespace Api.Services.Config
         public RegexAddressFormat GetRegexAddressFormat(string country)
         {
             var list = GetRegexAddressesFormat() ?? new List<RegexAddressFormat>();
+            
             return list.FirstOrDefault(x => x.Country == country);
         }
     }
