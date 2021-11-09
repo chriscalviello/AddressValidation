@@ -29,6 +29,54 @@ namespace ApiUnitTesting.Services.AddressValidation
             Assert.True(sut.IsValid(ValidItalianAddress));
         }
 
+        [Theory]
+        [InlineData("")]
+        [InlineData(null)]
+        public void GivenNoRegexCity_WhenIsValid_ShouldReturnTrue(string regexCity)
+        {
+            var regexAddressesFormat = new List<RegexAddressFormat>() {
+                new RegexAddressFormat("NL", regexCity, "^[0-9]", "[\\p{L} ]+$", "^[1-9][0-9]{3} ?(?!sa|sd|ss|SA|SD|SS)[A-Za-z]{2}$")
+            };
+            var sutWithNoRegex = new AddressValidationService(new FakeConfigService(regexAddressesFormat));
+            Assert.True(sutWithNoRegex.IsValid(ValidDutchAddress));
+        }
+
+        [Theory]
+        [InlineData("")]
+        [InlineData(null)]
+        public void GivenNoRegexHouseNumber_WhenIsValid_ShouldReturnTrue(string regexHouseNumber)
+        {
+            var regexAddressesFormat = new List<RegexAddressFormat>() {
+                new RegexAddressFormat("NL", "[\\p{L} ]+$", regexHouseNumber, "[\\p{L} ]+$", "^[1-9][0-9]{3} ?(?!sa|sd|ss|SA|SD|SS)[A-Za-z]{2}$")
+            };
+            var sutWithNoRegex = new AddressValidationService(new FakeConfigService(regexAddressesFormat));
+            Assert.True(sutWithNoRegex.IsValid(ValidDutchAddress));
+        }
+
+        [Theory]
+        [InlineData("")]
+        [InlineData(null)]
+        public void GivenNoRegeStreet_WhenIsValid_ShouldReturnTrue(string regexStreet)
+        {
+            var regexAddressesFormat = new List<RegexAddressFormat>() {
+                new RegexAddressFormat("NL", "[\\p{L} ]+$", "^[0-9]", regexStreet, "^[1-9][0-9]{3} ?(?!sa|sd|ss|SA|SD|SS)[A-Za-z]{2}$")
+            };
+            var sutWithNoRegex = new AddressValidationService(new FakeConfigService(regexAddressesFormat));
+            Assert.True(sutWithNoRegex.IsValid(ValidDutchAddress));
+        }
+
+        [Theory]
+        [InlineData("")]
+        [InlineData(null)]
+        public void GivenNoRegeZipCode_WhenIsValid_ShouldReturnTrue(string regexZipCode)
+        {
+            var regexAddressesFormat = new List<RegexAddressFormat>() {
+                new RegexAddressFormat("NL", "[\\p{L} ]+$", "^[0-9]", "[\\p{L} ]+$", regexZipCode)
+            };
+            var sutWithNoRegex = new AddressValidationService(new FakeConfigService(regexAddressesFormat));
+            Assert.True(sutWithNoRegex.IsValid(ValidDutchAddress));
+        }
+
         [Fact]
         public void GivenNoAddress_WhenIsValid_ShouldThrow()
         {

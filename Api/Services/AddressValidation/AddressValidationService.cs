@@ -36,7 +36,7 @@ namespace Api.Services.AddressValidation
 
         private static bool IsValueOk(string regexPattern, string value)
         {
-            return new Regex(regexPattern).IsMatch(value);
+            return string.IsNullOrEmpty(regexPattern) || new Regex(regexPattern).IsMatch(value);
         }
 
     }
