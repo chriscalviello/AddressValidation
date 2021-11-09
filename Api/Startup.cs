@@ -35,7 +35,7 @@ namespace Api
                 {
                     Title = "Address Validation",
                     Version = "v1",
-                    Description = "An API to perform addresses validation based on regular expressions",
+                    Description = "An API to perform addresses validation based on regular expressions. Test credentials are test:123456",
                     Contact = new OpenApiContact
                     {
                         Name = "Chris Calviello",
